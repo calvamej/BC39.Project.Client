@@ -5,19 +5,14 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface ClientService {
-    /*
-    CRUD BÁSICO
-    */
-    public Mono<ClientEntity> getOne(String document);
+
     public Flux<ClientEntity> getAll();
+    public Mono<ClientEntity> getOne(String documentNumber);
+
     public Mono<ClientEntity> save(ClientEntity colEnt);
-    public Mono<ClientEntity> update(String document, String type);
-    public Mono<Void> delete(String document);
+    public Mono<ClientEntity> update(String documentNumber, String type);
+    public Mono<Void> delete(String documentNumber);
 
-    /*
-         MÉTODOS DE NEGOCIO
-    */
-
-    public Mono<ClientEntity> findClientByDocument(String document);
-    public Mono<ClientEntity> registerClient(ClientEntity colEnt);
+    public Mono<ClientEntity> findByDocument(String documentNumber);
+    public Mono<ClientEntity> register(ClientEntity colEnt);
 }

@@ -1,5 +1,6 @@
 package com.bootcamp.project.client.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,9 +17,10 @@ import java.util.Date;
 public class ClientEntity {
     @Id
     private ObjectId id;
-    private String document;
+    private String documentNumber;
     private String name;
     private String lastname;
     private String type;
-    private Date insert_date;
+    private Date createDate;
+    private Date modifyDate;
 }

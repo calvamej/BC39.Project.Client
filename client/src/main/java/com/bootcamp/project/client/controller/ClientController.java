@@ -14,9 +14,9 @@ public class ClientController {
     @Autowired
     ClientService clientService;
 
-    @GetMapping(value = "/FindOne/{document}")
-    public Mono<ClientEntity> Get_One(@PathVariable("document") String document){
-        return clientService.getOne(document);
+    @GetMapping(value = "/FindOne/{documentNumber}")
+    public Mono<ClientEntity> Get_One(@PathVariable("documentNumber") String documentNumber){
+        return clientService.getOne(documentNumber);
     }
     @GetMapping(value = "/FindAll")
     public Flux<ClientEntity> Get_All(){
@@ -28,23 +28,23 @@ public class ClientController {
 
         return clientService.save(col);
     }
-    @PutMapping(value = "/Update/{document}/{type}")
-    public Mono<ClientEntity> Update(@PathVariable("document") String document,@PathVariable("type") String type){
-        return clientService.update(document, type);
+    @PutMapping(value = "/Update/{documentNumber}/{type}")
+    public Mono<ClientEntity> Update(@PathVariable("documentNumber") String documentNumber,@PathVariable("type") String type){
+        return clientService.update(documentNumber, type);
     }
-    @DeleteMapping  (value = "/Delete/{document}")
-    public Mono<Void> Delete(@PathVariable("document") String document){
-        return clientService.delete(document);
+    @DeleteMapping  (value = "/Delete/{documentNumber}")
+    public Mono<Void> Delete(@PathVariable("documentNumber") String documentNumber){
+        return clientService.delete(documentNumber);
     }
 
-    @PostMapping(value = "/register")
+    @PostMapping(value = "/Register")
     public Mono<ResponseEntity<ClientEntity>> registerClient(@RequestBody ClientEntity col){
-        return clientService.registerClient(col).map(ResponseEntity::ok)
+        return clientService.register(col).map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.badRequest().build());
     }
-    @GetMapping(value = "/findClient/{document}")
-    public Mono<ResponseEntity<ClientEntity>> findClientByDocument(@PathVariable("document") String document){
-        return clientService.findClientByDocument(document).map(ResponseEntity::ok)
+    @GetMapping(value = "/FindByDocument/{documentNumber}")
+    public Mono<ResponseEntity<ClientEntity>> findClientByDocument(@PathVariable("documentNumber") String documentNumber){
+        return clientService.findByDocument(documentNumber).map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 }
