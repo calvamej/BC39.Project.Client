@@ -66,4 +66,8 @@ public class ClientServiceImplementation implements ClientService{
             return Mono.error(new CustomInformationException("Client type must be P or E"));
         }
     }
+    @Override
+    public Mono<Boolean> checkClient(String documentNumber) {
+        return clientRepository.findAll().filter(x -> x.getDocumentNumber().equals(documentNumber)).hasElements();
+    }
 }

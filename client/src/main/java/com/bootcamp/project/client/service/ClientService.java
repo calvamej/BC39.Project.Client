@@ -15,4 +15,5 @@ public interface ClientService {
 
     public Mono<ClientEntity> findByDocument(String documentNumber);
     public Mono<ClientEntity> register(ClientEntity colEnt);
+    public Mono<Boolean> checkClient(String documentNumber);
 }

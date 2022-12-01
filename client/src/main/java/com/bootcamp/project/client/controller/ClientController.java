@@ -38,13 +38,15 @@ public class ClientController {
     }
 
     @PostMapping(value = "/Register")
-    public Mono<ResponseEntity<ClientEntity>> registerClient(@RequestBody ClientEntity col){
-        return clientService.register(col).map(ResponseEntity::ok)
-                .defaultIfEmpty(ResponseEntity.badRequest().build());
+    public Mono<ClientEntity> registerClient(@RequestBody ClientEntity col){
+        return clientService.register(col);
     }
     @GetMapping(value = "/FindByDocument/{documentNumber}")
-    public Mono<ResponseEntity<ClientEntity>> findClientByDocument(@PathVariable("documentNumber") String documentNumber){
-        return clientService.findByDocument(documentNumber).map(ResponseEntity::ok)
-                .defaultIfEmpty(ResponseEntity.notFound().build());
+    public Mono<ClientEntity> findClientByDocument(@PathVariable("documentNumber") String documentNumber){
+        return clientService.findByDocument(documentNumber);
+    }
+    @GetMapping(value = "/CheckClient/{documentNumber}")
+    public Mono<Boolean> checkClient(@PathVariable("documentNumber") String documentNumber){
+        return clientService.checkClient(documentNumber);
     }
 }
