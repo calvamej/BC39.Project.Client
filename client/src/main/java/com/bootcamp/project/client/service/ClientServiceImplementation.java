@@ -67,6 +67,7 @@ public class ClientServiceImplementation implements ClientService{
     }
     @Override
     public Mono<Boolean> checkClient(String documentNumber) {
+        //check if client exists
         return clientRepository.findAll().filter(x -> x.getDocumentNumber().equals(documentNumber)).hasElements();
     }
 }
