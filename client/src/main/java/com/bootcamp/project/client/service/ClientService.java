@@ -14,6 +14,7 @@ public interface ClientService {
     public Mono<Void> delete(String documentNumber);
 
     public Mono<ClientEntity> findByDocument(String documentNumber);
-    public Mono<ClientEntity> register(ClientEntity colEnt);
+    public Mono<ClientEntity> registerPerson(ClientEntity colEnt);
+    public Mono<ClientEntity> registerBusiness(ClientEntity colEnt);
     public Mono<Boolean> checkClient(String documentNumber);
 }

@@ -20,7 +20,10 @@ public class ClientEntity {
     private String documentType;
     private String name;
     private String lastname;
+    private String companyName;
+    private String companyDescription;
     private String type;
+    private String subType;
     private Date createDate;
     private Date modifyDate;
 }

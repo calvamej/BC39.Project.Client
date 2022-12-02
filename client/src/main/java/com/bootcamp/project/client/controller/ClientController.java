@@ -37,9 +37,13 @@ public class ClientController {
         return clientService.delete(documentNumber);
     }
 
-    @PostMapping(value = "/Register")
-    public Mono<ClientEntity> registerClient(@RequestBody ClientEntity col){
-        return clientService.register(col);
+    @PostMapping(value = "/RegisterPerson")
+    public Mono<ClientEntity> registerPerson(@RequestBody ClientEntity col){
+        return clientService.registerPerson(col);
+    }
+    @PostMapping(value = "/RegisterBusiness")
+    public Mono<ClientEntity> registerBusiness(@RequestBody ClientEntity col){
+        return clientService.registerBusiness(col);
     }
     @GetMapping(value = "/FindByDocument/{documentNumber}")
     public Mono<ClientEntity> findClientByDocument(@PathVariable("documentNumber") String documentNumber){

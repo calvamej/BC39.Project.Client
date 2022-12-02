@@ -56,15 +56,14 @@ public class ClientServiceImplementation implements ClientService{
                 .switchIfEmpty(Mono.error(new CustomNotFoundException("Client not found")));
     }
     @Override
-    public Mono<ClientEntity> register(ClientEntity colEnt) {
-        if(colEnt.getType().equals("P") || colEnt.getType().equals("E")) {
+    public Mono<ClientEntity> registerPerson(ClientEntity colEnt) {
             return getOne(colEnt.getDocumentNumber())
                     .switchIfEmpty(clientRepository.save(colEnt));
-        }
-        else
-        {
-            return Mono.error(new CustomInformationException("Client type must be P or E"));
-        }
+    }
+    @Override
+    public Mono<ClientEntity> registerBusiness(ClientEntity colEnt) {
+        return getOne(colEnt.getDocumentNumber())
+                .switchIfEmpty(clientRepository.save(colEnt));
     }
     @Override
     public Mono<Boolean> checkClient(String documentNumber) {
