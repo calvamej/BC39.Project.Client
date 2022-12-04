@@ -100,7 +100,7 @@
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.12.1</version>
 				<configuration>
-					<locales>en,fr</locales>
+					<locales>en</locales>
 				</configuration>
 			</plugin>
 		</plugins>
