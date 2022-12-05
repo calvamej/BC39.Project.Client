@@ -4,17 +4,19 @@ import com.bootcamp.project.client.entity.ClientEntity;
 import com.bootcamp.project.client.exception.CustomInformationException;
 import com.bootcamp.project.client.exception.CustomNotFoundException;
 import com.bootcamp.project.client.repository.ClientRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import org.apache.log4j.Logger;
-
 import java.util.Date;
 
 @Service
 public class ClientServiceImplementation implements ClientService{
     private static Logger Log = Logger.getLogger(ClientServiceImplementation.class);
+    private static final String RESILIENCE4J_INSTANCE_NAME = "client";
+    private static final String FALLBACK_METHOD = "fallback";
     @Autowired
     private ClientRepository clientRepository;
 
@@ -69,5 +71,8 @@ public class ClientServiceImplementation implements ClientService{
     public Mono<Boolean> checkClient(String documentNumber) {
         //check if client exists
         return clientRepository.findAll().filter(x -> x.getDocumentNumber().equals(documentNumber)).hasElements();
+    }
+    public Mono<ClientEntity> circuitBreakerFallback(Exception ex) {
+        return Mono.error(new CustomInformationException("Service Error"));
     }
 }
