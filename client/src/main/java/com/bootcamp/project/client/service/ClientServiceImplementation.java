@@ -26,18 +26,19 @@ public class ClientServiceImplementation implements ClientService{
     }
     @Override
     public Mono<ClientEntity> getOne(String documentNumber) {
-        return clientRepository.findAll().filter(x -> x.getDocumentNumber().equals(documentNumber)).next();
+        return clientRepository.findAll().filter(x -> x.getDocumentNumber() != null && x.getDocumentNumber().equals(documentNumber)).next();
     }
 
     @Override
     public Mono<ClientEntity> save(ClientEntity colEnt) {
+        colEnt.setCreateDate(new Date());
         return clientRepository.save(colEnt);
     }
 
     @Override
-    public Mono<ClientEntity> update(String documentNumber, String type) {
+    public Mono<ClientEntity> update(String documentNumber, String subType) {
         return getOne(documentNumber).flatMap(c -> {
-            c.setType(type);
+            c.setClientSubType(subType);
             c.setModifyDate(new Date());
             return clientRepository.save(c);
         }).switchIfEmpty(Mono.error(new CustomNotFoundException("Client not found")));
@@ -54,23 +55,24 @@ public class ClientServiceImplementation implements ClientService{
 
     @Override
     public Mono<ClientEntity> findByDocument(String documentNumber) {
-        return clientRepository.findAll().filter(x -> x.getDocumentNumber().equals(documentNumber)).next()
+        return clientRepository.findAll().filter(x -> x.getDocumentNumber() != null && x.getDocumentNumber().equals(documentNumber)).next()
                 .switchIfEmpty(Mono.error(new CustomNotFoundException("Client not found")));
     }
     @Override
     public Mono<ClientEntity> registerPerson(ClientEntity colEnt) {
-            return getOne(colEnt.getDocumentNumber())
-                    .switchIfEmpty(clientRepository.save(colEnt));
+        colEnt.setCreateDate(new Date());
+        return getOne(colEnt.getDocumentNumber())
+                .switchIfEmpty(clientRepository.save(colEnt));
     }
     @Override
     public Mono<ClientEntity> registerBusiness(ClientEntity colEnt) {
+        colEnt.setCreateDate(new Date());
         return getOne(colEnt.getDocumentNumber())
                 .switchIfEmpty(clientRepository.save(colEnt));
     }
     @Override
     public Mono<Boolean> checkClient(String documentNumber) {
-        //check if client exists
-        return clientRepository.findAll().filter(x -> x.getDocumentNumber().equals(documentNumber)).hasElements();
+        return clientRepository.findAll().filter(x -> x.getDocumentNumber() != null && x.getDocumentNumber().equals(documentNumber)).hasElements();
     }
     public Mono<ClientEntity> circuitBreakerFallback(Exception ex) {
         return Mono.error(new CustomInformationException("Service Error"));

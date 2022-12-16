@@ -28,9 +28,9 @@ public class ClientController {
 
         return clientService.save(col);
     }
-    @PutMapping(value = "/Update/{documentNumber}/{type}")
-    public Mono<ClientEntity> Update(@PathVariable("documentNumber") String documentNumber,@PathVariable("type") String type){
-        return clientService.update(documentNumber, type);
+    @PutMapping(value = "/Update/{documentNumber}/{subType}")
+    public Mono<ClientEntity> Update(@PathVariable("documentNumber") String documentNumber,@PathVariable("subType") String subType){
+        return clientService.update(documentNumber, subType);
     }
     @DeleteMapping  (value = "/Delete/{documentNumber}")
     public Mono<Void> Delete(@PathVariable("documentNumber") String documentNumber){

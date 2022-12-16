@@ -8,11 +8,9 @@ public interface ClientService {
 
     public Flux<ClientEntity> getAll();
     public Mono<ClientEntity> getOne(String documentNumber);
-
     public Mono<ClientEntity> save(ClientEntity colEnt);
-    public Mono<ClientEntity> update(String documentNumber, String type);
+    public Mono<ClientEntity> update(String documentNumber, String subType);
     public Mono<Void> delete(String documentNumber);
-
     public Mono<ClientEntity> findByDocument(String documentNumber);
     public Mono<ClientEntity> registerPerson(ClientEntity colEnt);
     public Mono<ClientEntity> registerBusiness(ClientEntity colEnt);
