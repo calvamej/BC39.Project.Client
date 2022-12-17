@@ -18,7 +18,9 @@ public class ClientEntity {
     private String id;
     private String documentNumber;
     private String documentType;
+    //CLIENT TYPE: BUSINESS, PERSONAL.
     private String clientType;
+    //CLIENT SUBTYPE: PYME, VIP.
     private String clientSubType;
     private String name;
     private String lastname;
