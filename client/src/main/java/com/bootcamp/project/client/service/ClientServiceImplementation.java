@@ -60,12 +60,14 @@ public class ClientServiceImplementation implements ClientService{
     }
     @Override
     public Mono<ClientEntity> registerPerson(ClientEntity colEnt) {
+        colEnt.setClientType("Personal");
         colEnt.setCreateDate(new Date());
         return getOne(colEnt.getDocumentNumber())
                 .switchIfEmpty(clientRepository.save(colEnt));
     }
     @Override
     public Mono<ClientEntity> registerBusiness(ClientEntity colEnt) {
+        colEnt.setClientType("Business");
         colEnt.setCreateDate(new Date());
         return getOne(colEnt.getDocumentNumber())
                 .switchIfEmpty(clientRepository.save(colEnt));
